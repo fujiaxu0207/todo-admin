@@ -4,7 +4,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, Form, Input, Modal, notification, Table, DatePicker } from 'antd';
 import { TableRowSelection } from 'antd/lib/table';
-import { getAllTodo ,deleteTodo} from '../../service/index';
+import { getAllTodo ,deleteTodo,deleteBatchTodo} from '../../service/index';
 import FormItem from 'antd/lib/form/FormItem';
 import { RangePickerPresetRange } from 'antd/lib/date-picker/interface';
 
@@ -152,7 +152,7 @@ const SelectTable = () => {
     const [confirmLoadingState, setConfirmLoadingState] = useState(false);
     const [id, setId] = useState(0);
     const [uid, setUid] = useState(0);
-    const [filterId,setFilterId] = useState(-1);
+    const [filterId,setFilterId] = useState("");
     const [updateModalvisible, setUpdateModalvisible] = useState(false);
     const [loadingState, setLoadingState] = useState(true);
     const [todoData, setTodoData] = useState([
@@ -162,9 +162,9 @@ const SelectTable = () => {
         setSelectedRowKeys(selectedRowKeys);
     };
     const handleFilter = () => {
-        if(filterId !== -1) {
+        if(parseInt(filterId) >= 0) {
             setTodoData(todoData.filter((v)=>{
-                return v.id === filterId;
+                return v.id === parseInt(filterId);
             }))
         }
     }
@@ -179,7 +179,7 @@ const SelectTable = () => {
                         <Input
                             placeholder={'过滤用户id'}
                             value={filterId}
-                            onChange={(e: { target: { value: string; }; })=>{setFilterId(Number(e.target.value))}}
+                            onChange={(e: { target: { value: string; }; })=>{setFilterId(e.target.value)}}
                             //   onPressEnter={() => handleSearch(selectedKeys as string[], confirm, dataIndex)}
                             style={{ marginBottom: 8, display: 'block' }}
                         />
@@ -196,6 +196,10 @@ const SelectTable = () => {
                             // onClick={() => clearFilters && handleReset(clearFilters)}
                             size="small"
                             style={{ width: 90 }}
+                            onClick={() => {
+                                refresh()
+                                
+                            }}
                         >
                             重置
                         </Button>
@@ -260,7 +264,25 @@ const SelectTable = () => {
         },
         {
             title: (
-                <Button style={{ visibility: selectedRowKeys.length >= 1 ? 'visible' : 'hidden' }}>
+                <Button style={{ visibility: selectedRowKeys.length >= 1 ? 'visible' : 'hidden' }} onClick={
+                    ()=>{
+                        const ids:number[] = [];
+                        for (let i =0 ;i < selectedRowKeys.length;i++){
+                            if(typeof selectedRowKeys[i] === "string") {
+                                ids.push(todoData[selectedRowKeys[i]].id)
+                            }else {
+                                ids.push(todoData[selectedRowKeys[i]].id);
+                            }
+                            console.log(typeof selectedRowKeys[i]);
+                        }
+                        deleteBatchTodo(ids)
+                        .then((res)=>{
+                            if(res.result === 'SUCCESS'){
+                                refresh("删除成功");
+                            }
+                        })
+                    }
+                }>
                     批量删除
                 </Button>
             ),
@@ -271,7 +293,7 @@ const SelectTable = () => {
         selectedRowKeys,
         onChange: handleChange,
     };
-    const refresh = (msg: string) => {
+    const refresh = (msg?: string) => {
         setLoadingState(true);
         getAllTodo().then((res) => {
             setLoadingState(false);
@@ -279,10 +301,13 @@ const SelectTable = () => {
             setVisible(false);
             setUpdateModalvisible(false);
             setTodoData(res.data);
-            notification.success({
-                message: msg,
-                duration: 0.8,
-            });
+            if(msg){
+                notification.success({
+                    message: msg,
+                    duration: 0.8,
+                });
+            }
+            
         });
     };
     const handleOk2 = (uerInfo: { id: number; username: string; password: string }) => {
@@ -298,7 +323,6 @@ const SelectTable = () => {
     useEffect(() => {
         getAllTodo().then((res) => {
             if (res.result === 'SUCCESS') setLoadingState(false);
-            console.log(res);
             setTodoData(res.data);
         });
     }, []);

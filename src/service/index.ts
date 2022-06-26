@@ -92,3 +92,15 @@ export const deleteTodo = (uid:number) => {
         .then((res) => res.data)
         .catch((err) => console.log(err));
 }
+export const deleteBatchTodo = (idList:number[]) => {
+    let query:string[] = [];
+    for(let i = 0; i < idList.length; i++) {
+        query.push("idlist[]="+idList[i]);
+    }
+    // console.log(query.join("&"));
+    
+    return axios
+        .delete(`http://www.marsyr.top:8888/item?`+query.join("&"))
+        .then((res) => res.data)
+        .catch((err) => console.log(err));
+}

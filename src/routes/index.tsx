@@ -16,7 +16,7 @@ type CRouterProps = {
 
 const CRouter = (props: CRouterProps) => {
     const { auth } = props;
-    const [smenus] = useAlita({ smenus: null }, { light: true });
+    // const [smenus] = useAlita({ smenus: null }, { light: true });
 
     const getPermits = (): any[] | null => {
         return auth ? auth.permissions : null;
@@ -59,11 +59,11 @@ const CRouter = (props: CRouterProps) => {
         return r.component ? route(r) : subRoute(r);
     };
     const createRoute = (key: string) => routesConfig[key].map(createMenu);
-    const getAsyncMenus = () => smenus || umbrella.getLocalStorage('smenus') || [];
+    // const getAsyncMenus = () => smenus || umbrella.getLocalStorage('smenus') || [];
     return (
         <Switch>
             {Object.keys(routesConfig).map((key) => createRoute(key))}
-            {getAsyncMenus().map(createMenu)}
+            {/* {getAsyncMenus().map(createMenu)} */}
             <Route render={() => <Redirect to="/404" />} />
         </Switch>
     );
