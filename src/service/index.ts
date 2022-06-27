@@ -48,13 +48,13 @@ export const fetchMenu = () => get({ url: config.MOCK_MENU });
 
 export const getUsers = () =>
     axios
-        .get('http://www.marsyr.top:8888/user/info')
+        .get('https://www.marsyr.top/user/info')
         .then((res) => res.data)
         .catch((err) => console.log(err));
 export const userRegister = (userInfo:{username:string,password:string}) => {
 
     return axios
-        .post('http://www.marsyr.top:8888/register',{
+        .post('https://www.marsyr.top/register',{
             username:userInfo.username,
             password:userInfo.password,
            
@@ -65,13 +65,13 @@ export const userRegister = (userInfo:{username:string,password:string}) => {
 
 export const deletUser = (id:number) => {
     return axios
-        .delete(`http://www.marsyr.top:8888/user/`+id)
+        .delete(`https://www.marsyr.top/user/`+id)
         .then((res) => res.data)
         .catch((err) => console.log(err));
 }
 export const updateUser = (userInfo:{id:number,username:string,password:string}) => {
     return axios
-        .post(`http://www.marsyr.top:8888/user/info`,{
+        .post(`https://www.marsyr.top/user/info`,{
             id:userInfo.id,
             username:userInfo.username,
             password: userInfo.password
@@ -82,13 +82,13 @@ export const updateUser = (userInfo:{id:number,username:string,password:string})
 
 export const getAllTodo = () => {
     return axios
-        .get(`http://www.marsyr.top:8888/item/info`)
+        .get(`https://www.marsyr.top/item/info`)
         .then((res) => res.data)
         .catch((err) => console.log(err));
 }
 export const deleteTodo = (uid:number) => {
     return axios
-        .delete(`http://www.marsyr.top:8888/item/`+uid)
+        .delete(`https://www.marsyr.top/item/`+uid)
         .then((res) => res.data)
         .catch((err) => console.log(err));
 }
@@ -100,7 +100,7 @@ export const deleteBatchTodo = (idList:number[]) => {
     // console.log(query.join("&"));
     
     return axios
-        .delete(`http://www.marsyr.top:8888/item?`+query.join("&"))
+        .delete(`https://www.marsyr.top/item?`+query.join("&"))
         .then((res) => res.data)
         .catch((err) => console.log(err));
 }

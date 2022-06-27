@@ -83,9 +83,9 @@ class Login extends React.Component<LoginProps> {
                                 valuePropName: 'checked',
                                 initialValue: true,
                             })(<Checkbox>记住我</Checkbox>)}
-                            <span className="login-form-forgot" style={{ float: 'right' }}>
+                            {/* <span className="login-form-forgot" style={{ float: 'right' }}>
                                 忘记密码
-                            </span>
+                            </span> */}
                             <Button
                                 type="primary"
                                 htmlType="submit"
