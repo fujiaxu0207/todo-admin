@@ -2,7 +2,7 @@
  * Created by 叶子 on 2017/7/30.
  * 接口地址配置文件
  */
-export const TODO: string = 'http://www.marsyr.top:8888'
+export const TODO: string = 'https://www.marsyr.top/'
 
 
 //easy-mock模拟数据接口地址
