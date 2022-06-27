@@ -32,7 +32,7 @@ const option = {
     },
     xAxis: {
         type: 'category',
-        data: ['2017-05-01', '2017-05-02', '2017-05-03', '2017-05-04', '2017-05-05', '2017-05-06','2017-05-07'],
+        data: ['2022-06-22', '2022-06-23', '2022-06-24', '2022-06-25', '2022-06-26', '2022-06-27','2022-06-28'],
         boundaryGap: false,
         splitLine: {
             show: true,
@@ -113,7 +113,7 @@ const option = {
 const EchartsViews = () => (
     <ReactEcharts
         option={option}
-        style={{height: '350px', width: '100%'}}
+        style={{height: '320px', width: '100%'}}
         className={'react_for_echarts'}
     />
 );

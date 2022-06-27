@@ -48,7 +48,7 @@ export const fetchMenu = () => get({ url: config.MOCK_MENU });
 
 export const getUsers = () =>
     axios
-        .get('https://www.marsyr.top/user/info')
+        .get('https://www.marsyr.top/user/info'+"?t="+new Date())
         .then((res) => res.data)
         .catch((err) => console.log(err));
 export const userRegister = (userInfo:{username:string,password:string}) => {
@@ -82,7 +82,7 @@ export const updateUser = (userInfo:{id:number,username:string,password:string})
 
 export const getAllTodo = () => {
     return axios
-        .get(`https://www.marsyr.top/item/info`)
+        .get(`https://www.marsyr.top/item/info`+"?t="+new Date())
         .then((res) => res.data)
         .catch((err) => console.log(err));
 }
@@ -92,15 +92,35 @@ export const deleteTodo = (uid:number) => {
         .then((res) => res.data)
         .catch((err) => console.log(err));
 }
-export const deleteBatchTodo = (idList:number[]) => {
+export const deleteBatchTodo = (idList:string[]) => {
     let query:string[] = [];
     for(let i = 0; i < idList.length; i++) {
-        query.push("idlist[]="+idList[i]);
+        query.push("idList[]="+idList[i]);
     }
     // console.log(query.join("&"));
     
     return axios
-        .delete(`https://www.marsyr.top/item?`+query.join("&"))
+        .delete(`https://www.marsyr.top/item1`,{
+            data:idList
+        })
+        .then((res) => res.data)
+        .catch((err) => console.log(err));
+}
+
+export const updateTodo = (userInfo) => {
+    return axios
+        .post(`https://www.marsyr.top/item/info`,{
+            ...userInfo
+        })
+        .then((res) => res.data)
+        .catch((err) => console.log(err));
+}
+
+export const addTodo = (userInfo) => {
+    return axios
+        .post(`https://www.marsyr.top/item`,{
+            ...userInfo
+        })
         .then((res) => res.data)
         .catch((err) => console.log(err));
 }

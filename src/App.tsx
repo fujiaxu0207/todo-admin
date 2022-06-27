@@ -103,7 +103,7 @@ const App = (props: AppProps) => {
         setAlita('responsive', { isMobile: checkIsMobile() });
 
         handleResize((isMobile: boolean) => setAlita('responsive', { isMobile }));
-        openFNotification();
+        // openFNotification();
         // fetchSmenu((smenus: any[]) => setAlita('smenus', smenus));
     }, [setAlita]);
 

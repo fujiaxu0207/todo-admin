@@ -13,7 +13,7 @@ for (let i = 0; i < 50; i++) {
 
 const option = {
     title: {
-        text: '最近50天每天项目完成情况',
+        text: '最近50天每天待办完成情况',
         left: 'center',
         textStyle: {
             color: '#ccc',
@@ -85,7 +85,7 @@ const option = {
             }
         }
     }, {
-        name: '完成项目数',
+        name: '完成代办数',
         type: 'bar',
         data: data,
         xAxisIndex: 1,
@@ -108,7 +108,7 @@ const option = {
 const EchartsProjects = () => (
     <ReactEcharts
         option={option}
-        style={{height: '212px', width: '100%'}}
+        style={{height: '450px', width: '100%'}}
         className={'react_for_echarts'}
     />
 );
