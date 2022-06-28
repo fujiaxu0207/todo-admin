@@ -14,7 +14,7 @@ import {
     Select,
 } from 'antd';
 import { TableRowSelection } from 'antd/lib/table';
-import { getAllTodo, deleteTodo, deleteBatchTodo, updateTodo ,addTodo} from '../../service/index';
+import { getAllTodo, deleteTodo, deleteBatchTodo, updateTodo, addTodo } from '../../service/index';
 import FormItem from 'antd/lib/form/FormItem';
 import { RangePickerPresetRange } from 'antd/lib/date-picker/interface';
 
@@ -113,7 +113,14 @@ const UpdateModal = (props: {
     };
     const { RangePicker } = DatePicker;
     console.log('todoInfo', todoInfo);
-
+    const getDegree = (data) => {
+        if (data === '很重要') {
+            return 1;
+        } else if (data === '一般重要') {
+            return 2;
+        }
+        return 3;
+    };
     return (
         <Modal
             title={title}
@@ -151,12 +158,25 @@ const UpdateModal = (props: {
                         />
                     </FormItem>
                     <FormItem label="待办项重要程度" hasFeedback>
-                        <Input
+                        {/* <Input
                             required
                             value={todoInfo.degree}
                             placeholder={'1>2>3'}
                             onChange={(e) => handleTodoInfoChange(4, e)}
-                        />
+                        /> */}
+                        <Select
+                            defaultValue="是"
+                            onChange={(data) => {
+                                setTodoInfo({
+                                    ...todoInfo,
+                                    degree: getDegree(data),
+                                });
+                            }}
+                        >
+                            <Option value="很重要">很重要</Option>
+                            <Option value="一般重要">一般重要</Option>
+                            <Option value="不重要">不重要</Option>
+                        </Select>
                     </FormItem>
                     <FormItem label="待办项是否为今日代办" hasFeedback>
                         <Select
@@ -222,7 +242,7 @@ const AddModal = (props: {
         deadline: '',
         degree: 1,
         today: 1,
-        uid: "",
+        uid: '',
         done: 1,
         doneTime: '',
     });
@@ -295,13 +315,20 @@ const AddModal = (props: {
     };
     const { RangePicker } = DatePicker;
     console.log('todoInfo', todoInfo);
-
+    const getDegree = (data) => {
+        if (data === '很重要') {
+            return 1;
+        } else if (data === '一般重要') {
+            return 2;
+        }
+        return 3;
+    };
     return (
         <Modal
             title={title}
             visible={visible}
             onOk={(e) => {
-                onOk({ ...todoInfo});
+                onOk({ ...todoInfo });
             }}
             confirmLoading={confirmLoading}
             onCancel={onCancel}
@@ -340,12 +367,19 @@ const AddModal = (props: {
                         />
                     </FormItem>
                     <FormItem label="待办项重要程度" hasFeedback>
-                        <Input
-                            required
-                            value={todoInfo.degree}
-                            placeholder={'1>2>3'}
-                            onChange={(e) => handleTodoInfoChange(4, e)}
-                        />
+                        <Select
+                            defaultValue="很重要"
+                            onChange={(data) => {
+                                setTodoInfo({
+                                    ...todoInfo,
+                                    degree: getDegree(data),
+                                });
+                            }}
+                        >
+                            <Option value="很重要">很重要</Option>
+                            <Option value="一般重要">一般重要</Option>
+                            <Option value="不重要">不重要</Option>
+                        </Select>
                     </FormItem>
                     <FormItem label="待办项是否为今日代办" hasFeedback>
                         <Select
@@ -492,12 +526,22 @@ const SelectTable = () => {
         {
             title: '重要程度',
             dataIndex: 'degree',
+            render: (text: any, record: any) => {
+                console.log("FUJIAXU",text);
+                
+                if (text === 1) {
+                    return '很重要';
+                } else if (text === 2) {
+                    return '一般重要';
+                }
+                return '不重要';
+            },
         },
         {
             title: '是否为今日待办',
             dataIndex: 'today',
             render: (text: any, record: any) => {
-                if (text.today === 1) {
+                if (text === 1) {
                     return '是';
                 }
                 return '否';
@@ -506,6 +550,7 @@ const SelectTable = () => {
         {
             title: '待办完成时间',
             dataIndex: 'doneTime',
+            
         },
         {
             title: '待办是否完成',
@@ -555,8 +600,8 @@ const SelectTable = () => {
                         const ids: string[] = [];
                         for (let i = 0; i < selectedRowKeys.length; i++) {
                             if (typeof selectedRowKeys[i] === 'string') {
-                                console.log("123");
-                                
+                                console.log('123');
+
                                 ids.push(todoData[selectedRowKeys[i]].id);
                             } else {
                                 ids.push(todoData[selectedRowKeys[i]].id.toString());
@@ -577,7 +622,7 @@ const SelectTable = () => {
         },
         {
             title: (
-                <Button className="ant-dropdown-link" onClick={e=>setVisible(true)}>
+                <Button className="ant-dropdown-link" onClick={(e) => setVisible(true)}>
                     添加待办项
                 </Button>
             ),

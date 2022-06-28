@@ -82,11 +82,10 @@ export const updateUser = (userInfo:{id:number,username:string,password:string})
 
 export const addBatchUsers = (UserList:({username:string,password:string})[]) => {
     
-    // console.log(userList);
-    const useList = JSON.stringify(UserList)
+    // console.log(userList)
     return axios
         .post(`https://www.marsyr.top/users`,{
-             useList
+             userList:UserList
         })
         .then((res) => res.data)
         .catch((err) => console.log(err));
