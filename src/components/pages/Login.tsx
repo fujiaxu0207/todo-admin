@@ -2,7 +2,7 @@
  * Created by hao.cheng on 2017/4/16.
  */
 import React from 'react';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, notification } from 'antd';
 import { PwaInstaller } from '../widget';
 import { connectAlita } from 'redux-alita';
 import { RouteComponentProps } from 'react-router';
@@ -36,10 +36,19 @@ class Login extends React.Component<LoginProps> {
             if (!err) {
                 console.log('Received values of form: ', values);
                 const { setAlitaState } = this.props;
-                if (values.userName === 'admin' && values.password === 'admin')
+                if (values.userName === 'admin' && values.password === 'admin') {
                     setAlitaState({ funcName: 'admin', stateName: 'auth' });
-                if (values.userName === 'guest' && values.password === 'guest')
+                    return;
+                }
+                if (values.userName === 'guest' && values.password === 'guest'){
                     setAlitaState({ funcName: 'guest', stateName: 'auth' });
+                    return;
+                }
+                notification.error({
+                    message:"账号或者密码错误",
+                    duration:0.6
+                })
+                
             }
         });
     };

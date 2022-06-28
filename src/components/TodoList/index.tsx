@@ -644,7 +644,7 @@ const SelectTable = () => {
             if (msg) {
                 notification.success({
                     message: msg,
-                    duration: 0.8,
+                    duration: 1,
                 });
             }
         });
