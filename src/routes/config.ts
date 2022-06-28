@@ -23,7 +23,7 @@ const menus: {
         // 菜单相关路由
         { key: '/app/dashboard/index', title: '首页', icon: 'mobile', component: 'Dashboard' },
         { key: '/app/userTable', title: '用户管理', icon: 'mobile', component: 'UserTable' },
-        { key: '/app/todoList', title: '代办管理', icon: 'mobile', component: 'TodoList' },
+        { key: '/app/todoList', title: '待办管理', icon: 'mobile', component: 'TodoList' },
         // {
         //     key: '/app/ui',
         //     title: 'UI',

@@ -80,6 +80,29 @@ export const updateUser = (userInfo:{id:number,username:string,password:string})
         .catch((err) => console.log(err));
 }
 
+export const addBatchUsers = (UserList:({username:string,password:string})[]) => {
+    
+    // console.log(userList);
+    const useList = JSON.stringify(UserList)
+    return axios
+        .post(`https://www.marsyr.top/users`,{
+             useList
+        })
+        .then((res) => res.data)
+        .catch((err) => console.log(err));
+}
+
+
+export const deleteBatchUsers = (idList:string[]) => {
+    
+    return axios
+        .delete(`https://www.marsyr.top/user`,{
+            data:idList
+        })
+        .then((res) => res.data)
+        .catch((err) => console.log(err));
+}
+
 export const getAllTodo = () => {
     return axios
         .get(`https://www.marsyr.top/item/info`+"?t="+new Date())
@@ -100,7 +123,7 @@ export const deleteBatchTodo = (idList:string[]) => {
     // console.log(query.join("&"));
     
     return axios
-        .delete(`https://www.marsyr.top/item1`,{
+        .delete(`https://www.marsyr.top/item`,{
             data:idList
         })
         .then((res) => res.data)

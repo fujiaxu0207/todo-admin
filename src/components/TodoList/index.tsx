@@ -126,7 +126,6 @@ const UpdateModal = (props: {
         >
             <div className="gutter-box">
                 <Form>
-                    //todo 判空
                     <FormItem label="待办项名" hasFeedback style={{ marginBottom: '5px' }}>
                         <Input
                             required
@@ -309,7 +308,6 @@ const AddModal = (props: {
         >
             <div className="gutter-box">
                 <Form>
-                    //todo 判空
                     <FormItem label="用户id" hasFeedback style={{ marginBottom: '5px' }}>
                         <Input
                             required
