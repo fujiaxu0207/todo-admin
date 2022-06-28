@@ -311,7 +311,7 @@ const SelectTable = () => {
             setSelectedRowKeys([]);
             notification.success({
                 message: msg,
-                duration: 1,
+                duration: 1.5,
             });
         });
     };

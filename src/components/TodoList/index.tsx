@@ -459,7 +459,7 @@ const SelectTable = () => {
         if (parseInt(filterId) >= 0) {
             setTodoData(
                 todoData.filter((v) => {
-                    return v.id === parseInt(filterId);
+                    return v.uid === parseInt(filterId);
                 })
             );
         }
@@ -556,7 +556,7 @@ const SelectTable = () => {
             title: '待办是否完成',
             dataIndex: 'done',
             render: (text: any, record: any) => {
-                if (text.done === 1) {
+                if (text === 1) {
                     return '是';
                 }
                 return '否';
@@ -644,7 +644,7 @@ const SelectTable = () => {
             if (msg) {
                 notification.success({
                     message: msg,
-                    duration: 1,
+                    duration: 1.5,
                 });
             }
         });
